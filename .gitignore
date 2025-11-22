@@ -1,0 +1,53 @@
+# Build outputs
+bin/
+obj/
+out/
+artifacts/
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Logs
+*.log
+logs/
+
+# ASP.NET Core published files
+wwwroot/dist/
+wwwroot/node_modules/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+*.env
+*.env.*
+
+# Dotnet tools
+*.pfx
+*.snk
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Rider / JetBrains
+.idea/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+*.lock.json
+
+# Backup / Temporary files
+*.tmp
+*.bak
+*.orig
+
+# IIS Express
+.vs/
+*.vspscc
