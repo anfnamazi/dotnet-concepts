@@ -3,12 +3,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGreeting();
 var app = builder.Build();
 
+// Dependency Injection
 app.MapGet("/", (IGreeting greeting) => greeting.GetGreeting());
 
+// Middleware
 app.UseLogging();
+
+// Configuration
+app.MapGet(
+    "/welcome",
+    (IConfiguration configuration) =>
+    {
+        var config =
+            configuration.GetSection("Application").Get<Config>()
+            ?? throw new InvalidOperationException("Invalid app configuration!");
+
+        return $"Welcome to {config.Name}'s {config.Customer}";
+    }
+);
 
 app.Run();
 
+/* #region Dependency Injection */
 interface IGreeting
 {
     public string GetGreeting();
@@ -32,6 +48,9 @@ public static class GreetingServiceBuilderExtension
     }
 }
 
+/* #endregion */
+
+/* #region Middleware */
 public class LoggingMiddleware
 {
     private readonly RequestDelegate _next;
@@ -58,3 +77,10 @@ public static class LoggingMiddlewareExtension
         return builder.UseMiddleware<LoggingMiddleware>();
     }
 }
+
+/* #endregion */
+
+/* #region Configuration */
+public record Config(string Name, string Customer);
+
+/* #endregion */
