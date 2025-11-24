@@ -22,6 +22,18 @@ app.MapGet(
     }
 );
 
+// Logging
+app.MapGet(
+    "/log",
+    (ILogger<Program> logger) =>
+    {
+        logger.LogInformation("information logging...");
+        logger.LogDebug("debug logging...");
+        logger.LogWarning("warning logging...");
+        logger.LogCritical("critical logging...");
+    }
+);
+
 app.Run();
 
 /* #region Dependency Injection */
@@ -83,4 +95,10 @@ public static class LoggingMiddlewareExtension
 /* #region Configuration */
 public record Config(string Name, string Customer);
 
+/* #endregion */
+
+/* #region Environment */
+// app.Environment.IsDevelopment() | for Development;
+// app.Environment.IsProduction() | For live system;
+// app.Environment.IsStaging() | For Testing
 /* #endregion */
