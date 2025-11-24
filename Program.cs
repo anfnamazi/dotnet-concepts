@@ -1,6 +1,14 @@
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Dependency Injection
 builder.Services.AddGreeting();
+
+// Health Checks
+// builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks().AddCheck<CustomHealthCheck>("CustomHealthCheck");
+
 var app = builder.Build();
 
 // Dependency Injection
@@ -33,6 +41,9 @@ app.MapGet(
         logger.LogCritical("critical logging...");
     }
 );
+
+// Health Checks
+app.MapHealthChecks("/health");
 
 app.Run();
 
@@ -101,4 +112,18 @@ public record Config(string Name, string Customer);
 // app.Environment.IsDevelopment() | for Development;
 // app.Environment.IsProduction() | For live system;
 // app.Environment.IsStaging() | For Testing
+/* #endregion */
+
+/* #region Health Checks */
+public class CustomHealthCheck : IHealthCheck
+{
+    public Task<HealthCheckResult> CheckHealthAsync(
+        HealthCheckContext context,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return Task.FromResult(new HealthCheckResult(HealthStatus.Unhealthy));
+    }
+}
+
 /* #endregion */
