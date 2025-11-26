@@ -63,6 +63,24 @@ app.MapGet("/dynamic-route/{name?}", (string? name) => $"Hello World to {name}")
 // Static File
 app.UseStaticFiles();
 
+// Error Handling
+app.MapGet(
+    "cause-error",
+    () =>
+    {
+        throw new InvalidOperationException();
+    }
+);
+app.MapGet("/error", () => "unfortunately, an error happened!");
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/error");
+}
+
 app.Run();
 
 /* #region Dependency Injection */
