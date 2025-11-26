@@ -47,7 +47,7 @@ app.MapHealthChecks("/health");
 
 // HTTP Context
 app.MapGet(
-    "http-context",
+    "/http-context",
     (HttpContext context) =>
     {
         context.Response.StatusCode = 201;
@@ -56,6 +56,9 @@ app.MapGet(
         return $"<h2>{context.Request.Path.Value}</h2><p>This is a test page!</p>";
     }
 );
+
+// Dynamic Routing
+app.MapGet("/dynamic-route/{name: string?}", (string? name) => $"Hello World to {name}");
 
 app.Run();
 
