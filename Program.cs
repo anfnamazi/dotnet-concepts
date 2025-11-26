@@ -58,7 +58,10 @@ app.MapGet(
 );
 
 // Dynamic Routing
-app.MapGet("/dynamic-route/{name: string?}", (string? name) => $"Hello World to {name}");
+app.MapGet("/dynamic-route/{name?}", (string? name) => $"Hello World to {name}");
+
+// Static File
+app.UseStaticFiles();
 
 app.Run();
 
