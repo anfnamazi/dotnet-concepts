@@ -45,6 +45,18 @@ app.MapGet(
 // Health Checks
 app.MapHealthChecks("/health");
 
+// HTTP Context
+app.MapGet(
+    "http-context",
+    (HttpContext context) =>
+    {
+        context.Response.StatusCode = 201;
+        context.Response.ContentType = "text/html";
+
+        return $"<h2>{context.Request.Path.Value}</h2><p>This is a test page!</p>";
+    }
+);
+
 app.Run();
 
 /* #region Dependency Injection */
