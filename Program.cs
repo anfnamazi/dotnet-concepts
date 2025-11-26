@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,16 @@ builder.Services.AddGreeting();
 // Health Checks
 // builder.Services.AddHealthChecks();
 builder.Services.AddHealthChecks().AddCheck<CustomHealthCheck>("CustomHealthCheck");
+
+// Outgoing HTTP Request
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient(
+    "Posts",
+    httpClient =>
+    {
+        httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+    }
+);
 
 var app = builder.Build();
 
@@ -63,7 +74,7 @@ app.MapGet("/dynamic-route/{name?}", (string? name) => $"Hello World to {name}")
 // Static File
 app.UseStaticFiles();
 
-// Error Handling
+/* #region Error Handling */
 app.MapGet(
     "cause-error",
     () =>
@@ -80,6 +91,29 @@ else
 {
     app.UseExceptionHandler("/error");
 }
+
+/* #endregion */
+
+/* #region Outgoing HTTP Request */
+app.MapGet(
+    "/posts",
+    async (IHttpClientFactory httpClientFactory, HttpContext httpContext) =>
+    {
+        var httpClient = httpClientFactory.CreateClient("Posts");
+        var response = await httpClient.GetAsync("posts?_limit=10");
+        var posts = await response.Content.ReadFromJsonAsync<Post[]>();
+
+        httpContext.Response.ContentType = "text/html";
+
+        var postsHtml = string.Join(
+            "",
+            posts?.Select(j => $"<li>{j.Title}<br/>{j.Body}</li>") ?? [""]
+        );
+        return $"<h2>Top 10 posts:</h2><ul>{postsHtml}</ul>";
+    }
+);
+
+/* #endregion */
 
 app.Run();
 
@@ -162,4 +196,21 @@ public class CustomHealthCheck : IHealthCheck
     }
 }
 
+/* #endregion */
+
+/* #region Outgoing HTTP Request */
+public record Post
+{
+    [JsonPropertyName("id")]
+    public required int Id { get; set; }
+
+    [JsonPropertyName("title")]
+    public required string Title { get; set; }
+
+    [JsonPropertyName("body")]
+    public required string Body { get; set; }
+
+    [JsonPropertyName("userId")]
+    public required int UserId { get; set; }
+}
 /* #endregion */
