@@ -1,3 +1,3 @@
-namespace DotnetConcepts.Models;
+namespace DotnetConcepts.Core.Models;
 
 public record Config(string Name, string Customer);

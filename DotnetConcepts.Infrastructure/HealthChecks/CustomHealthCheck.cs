@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace DotnetConcepts.HealthChecks;
+namespace DotnetConcepts.Infrastructure.HealthChecks;
 
 public class CustomHealthCheck : IHealthCheck
 {

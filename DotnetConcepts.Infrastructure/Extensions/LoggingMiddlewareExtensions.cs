@@ -1,6 +1,7 @@
 using DotnetConcepts.Middleware;
+using Microsoft.AspNetCore.Builder;
 
-namespace DotnetConcepts.Extensions;
+namespace DotnetConcepts.Infrastructure.Extensions;
 
 public static class LoggingMiddlewareExtension
 {

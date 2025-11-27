@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace DotnetConcepts.Middleware;
 
 public class LoggingMiddleware

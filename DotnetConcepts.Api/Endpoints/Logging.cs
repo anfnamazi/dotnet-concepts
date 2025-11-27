@@ -1,4 +1,4 @@
-namespace DotnetConcepts.Endpoints;
+namespace DotnetConcepts.Web.Endpoints;
 
 public static class LoggingEndpoints
 {

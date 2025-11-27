@@ -1,6 +1,7 @@
-using DotnetConcepts.Services;
+using DotnetConcepts.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace DotnetConcepts.Extensions;
+namespace DotnetConcepts.Infrastructure.Extensions;
 
 public static class GreetingServiceExtensions
 {

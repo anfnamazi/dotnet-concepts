@@ -1,6 +1,6 @@
-using DotnetConcepts.Endpoints;
-using DotnetConcepts.Extensions;
-using DotnetConcepts.HealthChecks;
+using DotnetConcepts.Infrastructure.Extensions;
+using DotnetConcepts.Infrastructure.HealthChecks;
+using DotnetConcepts.Web.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 

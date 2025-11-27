@@ -1,4 +1,4 @@
-namespace DotnetConcepts.Services;
+namespace DotnetConcepts.Core.Services;
 
 public interface IGreeting
 {

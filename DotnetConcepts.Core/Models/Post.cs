@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace DotnetConcepts.Models;
+namespace DotnetConcepts.Core.Models;
 
 public record Post
 {

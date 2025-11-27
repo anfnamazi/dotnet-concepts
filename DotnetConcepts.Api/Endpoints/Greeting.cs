@@ -1,6 +1,6 @@
-using DotnetConcepts.Services;
+using DotnetConcepts.Core.Services;
 
-namespace DotnetConcepts.Endpoints;
+namespace DotnetConcepts.Web.Endpoints;
 
 public static class GreetingEndpoints
 {

@@ -1,6 +1,6 @@
-using DotnetConcepts.Models;
+using DotnetConcepts.Core.Models;
 
-namespace DotnetConcepts.Endpoints;
+namespace DotnetConcepts.Web.Endpoints;
 
 public static class ConfigEndpoints
 {
